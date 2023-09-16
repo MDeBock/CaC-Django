@@ -11,7 +11,7 @@ def home(request):
              "fecha":"2023-09-15",
              "numero":"0005-04405",
              "detalle":"Cartuchos de impresora",
-             "importe":23450.60,
+             "importe":23450.630,
              "vencimiento":"2023-10-15",
              "estado":1
              },
@@ -27,7 +27,7 @@ def home(request):
              "fecha":"2023-09-11",
              "numero":"0003-045",
              "detalle":"Almuerzo día del maestro",
-             "importe":48250,
+             "importe":48250.795,
              "vencimiento":"2023-09-11",
              "estado":2
              },
@@ -82,7 +82,7 @@ def factura_edit(request, id_factura):
              "fecha":"2023-09-15",
              "numero":"0005-04405",
              "detalle":"Cartuchos de impresora",
-             "importe":23450.60,
+             "importe":23450.630,
              "vencimiento":"2023-10-15",
              "estado":1
              },
@@ -98,7 +98,7 @@ def factura_edit(request, id_factura):
              "fecha":"2023-09-11",
              "numero":"0003-045",
              "detalle":"Almuerzo día del maestro",
-             "importe":48250,
+             "importe":48250.795,
              "vencimiento":"2023-09-11",
              "estado":2
              },

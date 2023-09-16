@@ -28,7 +28,7 @@
             <td>{{factura.fecha}}</td>
             <td>{{factura.numero}}</td>
             <td>{{factura.detalle}}</td>
-            <td>{{factura.importe}}</td>
+            <td>$ {{factura.importe | floatformat:2}}</td>
             <td>{{factura.vencimiento}}</td>
             
             {% if factura.estado == 1 %}

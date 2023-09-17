@@ -1,0 +1,85 @@
+{% extends "./base.html" %}
+{% block titulo %}Registro de usuario{% endblock titulo %}
+{% block contenido %}
+<div class="container">
+    <div class="row col s12 orange z-depth-5">
+        <div class="col s12">
+            <p>REGISTRO DE USUARIO</p>
+          </div>
+    </div>
+    <div class="row col s12">
+        <div class="input-field col s6">
+            <i class="material-icons prefix">textsms</i>
+            <input type="text" name="usuario" id="usuarios">
+            <label for="usuario">Nombre de usuario</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">password</i>
+            <input type="password" name="password" id="password">
+            <label for="password">Contraseña</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">key</i>
+            <input type="text" name="key_usuario" id="key_usuario">
+            <label for="key_usuario">Clave unica de registro</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">textsms</i>
+            <input type="text" name="razon_social" id="razon_social">
+            <label for="razon_social">Razón social</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">assignment</i>
+            <input type="text" name="inscripcion" id="inscripcion">
+            <label for="inscripcion">Inscripción AFIP</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">assignment</i>
+            <input type="text" name="cuit" id="cuit">
+            <label for="cuit">Razón social</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">email</i>
+            <input type="email" name="email" id="email">
+            <label for="email">Correo Electronico</label>
+        </div>
+        <div class="input-field col s6">
+            <i class="material-icons prefix">phone_android</i>
+            <input type="text" name="telefono" id="telefono">
+            <label for="telefono">Telefono</label>
+        </div>
+        <div class="file-field input-field col s6">
+            <i class="material-icons prefix">attach_file</i>
+            <div class="btn right">
+              <span>Subir</span>
+              <input type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input name="afip" class="afip-path validate" type="text">
+            </div>
+            <label for="afip">Constancia de AFIP</label>
+        </div>
+    
+    <div class="file-field input-field col s6">
+        <i class="material-icons prefix">attach_file</i>
+        <div class="btn right">
+          <span>Subir</span>
+          <input type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input name="iibb" class="iibb-path validate" type="text">
+        </div>
+        <label for="iibb">Constancia de IIB</label>
+    </div>
+    <div class="row">
+        <div class="col s6 right">
+            <a href="{% url 'login' %}" class="waves-effect waves-light btn orange darken-4 right"><i class="material-icons right">save</i>Guardar</a>
+            <a href="{% url 'index' %}" class="waves-effect waves-light btn orange darken-4 right"><i class="material-icons right">undo</i>volver</a>
+            
+
+        </div>
+    </div> 
+</div>
+</div>
+
+{% endblock contenido %}

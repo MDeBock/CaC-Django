@@ -2,6 +2,14 @@
 {% block titulo %}{{username}}{% endblock titulo %}
 
 {% block contenido %}
+<!--BOTONES DE OPCIONES-->
+<div class="row opciones">
+    <div class="col s12">
+        <a href="{% url 'factura-form' %}" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">note_add</i>Agregar</a>
+        <a href=""class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">mode_edit</i>Editar</a>
+        <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">delete</i>Eliminar</a>
+   
+    </div>
     <!--TABLA-->
 <table class="striped">
     <thead>

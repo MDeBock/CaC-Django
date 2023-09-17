@@ -23,14 +23,14 @@
     <li><a href="{% url 'perfil' %}">Editar Perfil</a></li>
     <li><a href="#">Datos fiscales</a></li>
     <li class="divider"></li>
-    <li><a href="#">Cerrar session</a></li>
+    <li><a href="/">Cerrar session</a></li>
 
 </ul>
 <nav class="blue-grey darken-4">
 <div class="nav-wrapper">
-<a href="{% url 'home' %}" class="brand-logo">ProviRed</a>
+<a href="{% url 'index' %}" class="brand-logo">ProviRed</a>
 <ul class="right hide-on-med-and-down">
-    <li><a href="#">Facturas</a></li>
+    <li><a href="{% url 'home' %}">Facturas</a></li>
     <li><a href="#">Editar datos</a></li>
     <li class="collection-item avatar"><a class="dropdown-trigger" href="#!" data-target="dropdown"><i class="material-icons right">arrow_drop_down</i><img src="{% static '/img/' %}avatar.png" alt="" class="circle"></a></li>
     
@@ -42,27 +42,20 @@
 
  
 <!--CONTENIDO-->
-<div class="container">
-   {% block botones %}
-       <!--BOTONES DE OPCIONES-->
-       <div class="row opciones">
-        <div class="col s12">
-            <a href="{% url 'factura-form' %}" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">note_add</i>Agregar</a>
-            <a href=""class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">mode_edit</i>Editar</a>
-            <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">delete</i>Eliminar</a>
+<div class="container center-align">
 
-        </div>
-    </div>
-   {% endblock botones %}
 
 <!--TODO FILTRO POR FECHA Y POR ESTADO-->
 
 {% block contenido %}
-    
+
+
+
+
 {% endblock contenido %}
     
 
-
+</div>
 
 
 {% block footer %}

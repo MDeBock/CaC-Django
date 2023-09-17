@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="file-field input-field col s6">
+                    <div class="file-field input-field col s4">
                         <div class="btn">
                           <span>File</span>
                           <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="file">
@@ -73,9 +73,9 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col s6">
+                        <div class="row col s8 right ">
                             <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">save</i>Guardar</a>
-                            <a href="/" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">undo</i>volver</a>
+                            <a href="{% url 'home' %}" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">undo</i>volver</a>
                             <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">clear_all</i>Limpiar</a>
                 
                         </div>

@@ -1,6 +1,42 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
+
+
+def index(request):
+    #EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
+    contexto = {
+        'username': 'Juan',
+        'mail': "juan@proveedor.com",
+        'facturas': [
+            {"id_factura":1,
+             "fecha":"2023-09-15",
+             "numero":"0005-04405",
+             "detalle":"Cartuchos de impresora",
+             "importe":23450.630,
+             "vencimiento":"2023-10-15",
+             "estado":1
+             },
+              {"id_factura":2,
+             "fecha":"2023-09-16",
+             "numero":"0007-04452205",
+             "detalle":"Limpia piso especial",
+             "importe":12500,
+             "vencimiento":"2023-09-30",
+             "estado":0
+             },
+              {"id_factura":3,
+             "fecha":"2023-09-11",
+             "numero":"0003-045",
+             "detalle":"Almuerzo día del maestro",
+             "importe":48250.795,
+             "vencimiento":"2023-09-11",
+             "estado":2
+             },
+        ],
+    }
+
+    return render(request, "proveedores/index.html",context=contexto)
 def home(request):
     #EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
     contexto = {
@@ -118,3 +154,9 @@ def perfil(request):
         "email":"juan@proveedor.com.ar"
     }
     return render(request,'proveedores/perfil.html',contexto)
+
+def registro(request):
+    return render(request,'proveedores/registro.html',{})
+
+def login(request):
+    return render(request,'proveedores/login.html',{})

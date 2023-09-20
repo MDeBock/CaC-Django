@@ -11,9 +11,7 @@
         <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="{% static 'css/home.css' %}"  media="screen,projection"/>
     <title>Provired -
-    {% block titulo %}
-        Nombre de usuario
-    {% endblock titulo %}
+    {% block titulo %}{% filter upper %}Nombre de usuario{% endfilter %}{% endblock titulo %}
          </title>
 </head>
 <body>

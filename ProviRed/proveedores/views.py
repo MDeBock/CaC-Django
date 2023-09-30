@@ -168,4 +168,5 @@ def registro(request):
 
 
 def login(request):
-    return render(request, 'proveedores/login.html', {})
+    form = Registro()
+    return render(request, 'proveedores/login.html', {'form': form})

@@ -19,6 +19,7 @@ class Registro(forms.Form):
         widget=forms.TextInput(attrs={
             'class': clase1,
             'class': clase2,
+            'type': 'password',
             'id': 'password'}))
 
     clave_unica = forms.CharField(

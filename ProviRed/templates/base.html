@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/home.css' %}" media="screen,projection"/>
+    <title>Provired -
+        {% block titulo %}{% filter upper %}Nombre de usuario{% endfilter %}{% endblock titulo %}
+    </title>
+</head>
+<body>
+{% block navbar %}
+    <!--MENU SUPERIOR-->
+    <ul id="dropdown" class="dropdown-content">
+        <li><a href="{% url 'perfil' %}">Editar Perfil</a></li>
+        <li><a href="#">Datos fiscales</a></li>
+        <li class="divider"></li>
+        <li><a href="/">Cerrar session</a></li>
+
+    </ul>
+    <nav class="blue-grey darken-4" style="padding: 0 2%">
+        <div class="nav-wrapper">
+            <a href="{% url 'index' %}" class="brand-logo">ProviRed</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'home' %}">Facturas</a></li>
+                <li><a href="#">Editar datos</a></li>
+                <li class="collection-item avatar"><a class="dropdown-trigger" href="#!" data-target="dropdown"><i
+                        class="material-icons right">arrow_drop_down</i><img src="{% static '/img/' %}avatar.png" alt=""
+                                                                             class="circle"></a></li>
+
+            </ul>
+
+        </div>
+    </nav>
+{% endblock navbar %}
+
+
+<!--CONTENIDO-->
+<div class="container center-align">
+
+
+    <!--TODO FILTRO POR FECHA Y POR ESTADO-->
+
+    {% block contenido %}
+
+
+
+
+    {% endblock contenido %}
+
+
+</div>
+
+
+{% block footer %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/materialize.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
+    </html>
+{% endblock footer %}
+    

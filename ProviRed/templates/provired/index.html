@@ -1,0 +1,150 @@
+{% extends "./base2.html" %}
+{% block titulo %}Home{% endblock titulo %}
+{% load static %}
+
+{% block nav %}
+<div class="navegador">
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#nosotros">NOSOTROS</a>
+        <a href="#funciones">DESCRIPCION</a>
+        <a href="#imagenes">IMAGENES</a>
+    </nav>
+</div>
+{% endblock nav %}
+
+{% block boton %}
+<div class="usuarios">
+    <a href="{% url 'login' %}" class="btn">USUARIO</a>
+</div>
+{% endblock boton %}
+
+{% block main %}
+<main>
+    <!-- section home -->
+    <section class="home" id="home">
+        <div class="home-content">
+            <h1>CURSO DJANGO</h1>
+            <h1>CODO A CODO 2023</h1>
+            <h1>COMISION 23654</h1>
+            <h1>GRUPO 16</h1>                
+            <div class="social-media">
+                <a href="https://github.com/MDeBock/CaC-Django" target="_blank"><i class='bx bxl-github'></i></a>                    
+            </div>
+        </div>    
+        <div class="home-img">
+            <img src="{% static "img/logo.png" %}" alt="">
+        </div>
+    </section>
+
+    <!-- section nosotros -->
+    <section class="nosotros" id="nosotros">
+        <h1>NOSOTROS</h1>
+        <div class="nosotros-content">
+            <div class="profesor">
+                <img src="{% static "img/profe.png" %}" alt="profesor">
+                <h5>MENTOR</h5>
+                <h3>Alejandro Hunt</h3>
+            </div>
+            <div class="alumnos">
+                <div class="integrante">
+                    <img src="{% static "img/integrante.png" %}" alt="">
+                    <h5>ALUMNO</h5>
+                    <h3>NOMBRE</h3>
+                    <h3>REDES</h3>
+                </div>
+                <div class="integrante">
+                    <img src="{% static "img/integrante.png" %}" alt="">
+                    <h5>ALUMNO</h5>
+                    <h3>NOMBRE</h3>
+                    <h3>REDES</h3>
+                </div>
+                <div class="integrante">
+                    <img src="{% static "img/integrante.png" %}" alt="">
+                    <h5>ALUMNO</h5>
+                    <h3>NOMBRE</h3>
+                    <h3>REDES</h3>
+                </div>
+                <div class="integrante">
+                    <img src="{% static "img/integrante.png" %}" alt="">
+                    <h5>ALUMNO</h5>
+                    <h3>NOMBRE</h3>
+                    <h3>REDES</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- section funciones -->
+    <section class="funciones" id="funciones">
+        <div class="funciones-content">
+            <h1>DESCRIPCION</h1>
+            <div class="descripcion">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit dignissimos quisquam et saepe quibusdam earum quos architecto numquam nobis voluptatem, mollitia ipsa totam. Ipsum officia enim delectus voluptatem perspiciatis eveniet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- section imagenes -->
+    <section class="imagenes" id="imagenes">
+        <div class="imagenes-content">
+            <h1>IMAGENES</h1>                
+            <div class="imagen-container">
+                <div class="imagen-box">
+                    <img src="{% static "img/imagen.jpg" %}" alt="">
+                    <div class="imagen-layer">
+                        <h4>TITULO</h4>
+                        <p>descripcion</p>
+                        <a href="#" target="_blank"><i class='bx bx-link-external'></i></a>
+                    </div>
+                </div>        
+                <div class="imagen-box">
+                    <img src="{% static "img/imagen.jpg" %}" alt="">
+                    <div class="imagen-layer">
+                        <h4>TITULO</h4>
+                        <p>descripcion</p>
+                        <a href="#" target="_blank"><i class='bx bx-link-external'></i></a>
+                    </div>
+                </div>        
+                <div class="imagen-box">
+                    <img src="{% static "img/imagen.jpg" %}" alt="">
+                    <div class="imagen-layer">
+                        <h4>TITULO</h4>
+                        <p>descripcion</p>
+                        <a href="#" target="_blank"><i class='bx bx-link-external'></i></a>
+                    </div>
+                </div> 
+                <div class="imagen-box">
+                    <img src="{% static "img/imagen.jpg" %}" alt="">
+                    <div class="imagen-layer">
+                        <h4>TITULO</h4>
+                        <p>descripcion</p>
+                        <a href="#" target="_blank"><i class='bx bx-link-external'></i></a>
+                    </div>
+                </div> 
+                <div class="imagen-box">
+                    <img src="{% static "img/imagen.jpg" %}" alt="">
+                    <div class="imagen-layer">
+                        <h4>TITULO</h4>
+                        <p>descripcion</p>
+                        <a href="#" target="_blank"><i class='bx bx-link-external'></i></a>
+                    </div>
+                </div> 
+                <div class="imagen-box">
+                    <img src="{% static "img/imagen.jpg" %}" alt="">
+                    <div class="imagen-layer">
+                        <h4>TITULO</h4>
+                        <p>descripcion</p>
+                        <a href="#" target="_blank"><i class='bx bx-link-external'></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock main %}
+
+
+
+
+

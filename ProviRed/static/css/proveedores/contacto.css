@@ -1,0 +1,76 @@
+:root{
+    --bg--color--inpunt: #52555c;
+    --text-color: #fff;
+    --main-color: rgb(255, 0, 0);
+    --placeholder: #a9aaac;
+
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 91vh;
+}
+
+.form-datos{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-consulta{
+    margin: 2rem 0;    
+}
+
+.consulta{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form input{
+    padding: 4% 2%;    
+    width: 250px;
+    background-color: var(--bg--color--inpunt);
+    color: var(--text-color);
+    border: 1px solid var(--main-color);
+    margin-bottom: 1%;
+}
+
+textarea{
+    width: 530px;
+    margin: 2%;
+    background-color: var(--bg--color--inpunt);
+    color: var(--text-color);
+    border: 1px solid var(--main-color);    
+}
+
+::placeholder{
+    color: var(--placeholder);
+}
+
+div ul li {
+    color: var(--text-color);
+    font-size: .6rem;
+}
+
+.navegador{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 1% 0;
+}
+
+.navegador img{
+    width: 15%;
+    border-radius: 100%;
+}

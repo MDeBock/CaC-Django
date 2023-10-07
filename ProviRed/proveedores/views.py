@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from proveedores.formregistro import Registro
+from proveedores.forms import ContactoForm, Registro
+from django.http import HttpResponseBadRequest
+from django.contrib import messages
 
 
 # Create your views here.
@@ -170,3 +172,23 @@ def registro(request):
 def login(request):
     form = Registro()
     return render(request, 'proveedores/login.html', {'form': form})
+
+
+def contacto(request):    
+        
+    if request.method == 'GET':
+        formulario_contacto = ContactoForm() 
+    elif request.method == 'POST':
+        formulario_contacto = ContactoForm(request.POST)
+        if formulario_contacto.is_valid():
+            messages.success(request, 'Gracias por su consulta')
+        else:
+            messages.error(request, 'Por favor revise los datos ingresados')
+    else:
+        return HttpResponseBadRequest("Hiciste cagadas")
+    
+    context = {
+        'fomrulario_contacto': formulario_contacto
+    }
+    
+    return render(request, "proveedores\contacto.html", context)

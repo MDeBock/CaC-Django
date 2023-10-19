@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block contenido %}
+    <div class='row' class="centered">
+    <form method="post" class="col">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Agregar Factura</button><a href="{% url "home" %}" class="waves-effect waves-light btn orange darken-4 right"><i
+                            class="material-icons left">undo</i>volver</a>
+    </form>
+{% endblock %}
+</body>
+</html>

@@ -1,5 +1,9 @@
-from django.shortcuts import render
-from proveedores.formregistro import Registro
+from django.shortcuts import render, redirect
+from .formregistro import Registro
+from .nueva_factura import FacturaNueva
+from .models import Facturas
+from datetime import date
+from django.views.generic import ListView
 
 
 # Create your views here.
@@ -41,40 +45,68 @@ def index(request):
     return render(request, "proveedores/index.html", context=contexto)
 
 
-def home(request):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
-    contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.630,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250.795,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
-    }
+def agregar_factura(request):
+    if request.method == 'POST':
+        form = FacturaNueva(request.POST)
+        if form.is_valid():
+            id_factura = form.cleaned_data['id_factura']
+            fecha = date.today()
+            numero = form.cleaned_data['numero']
+            detalle = form.cleaned_data['detalle']
+            importe = form.cleaned_data['importe']
+            vencimiento = form.cleaned_data['vencimiento']
+            estado = form.cleaned_data['estado']
 
-    return render(request, "proveedores/home.html", context=contexto)
+            factura = Facturas(
+                id_factura, fecha, numero, detalle, importe, vencimiento, estado)
+            factura.save()
+        return redirect('home')
+
+    else:
+        form = FacturaNueva()
+    return render(request, 'proveedores/agregar-factura.html', {'form': form})
+
+
+class Home(ListView):
+    model = Facturas
+    context_object_name = 'facturas'
+    template_name = 'proveedores\home.html'
+
+
+# def home(request):
+# EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
+# contexto = {
+#      'username': 'Juan',
+#      'mail': "juan@proveedor.com",
+#     'facturas': [
+#         {"id_factura": 1,
+#          "fecha": "2023-09-15",
+#          "numero": "0005-04405",
+#          "detalle": "Cartuchos de impresora",
+#          "importe": 23450.630,
+#          "vencimiento": "2023-10-15",
+#          "estado": 1
+#          },
+#         {"id_factura": 2,
+#          "fecha": "2023-09-16",
+#          "numero": "0007-04452205",
+#          "detalle": "Limpia piso especial",
+#          "importe": 12500,
+#          "vencimiento": "2023-09-30",
+#          "estado": 0
+#          },
+#         {"id_factura": 3,
+#          "fecha": "2023-09-11",
+#          "numero": "0003-045",
+#          "detalle": "Almuerzo día del maestro",
+#          "importe": 48250.795,
+#          "vencimiento": "2023-09-11",
+#          "estado": 2
+#          },
+#     ],
+# }
+
+# return render(request, "proveedores/home.html")
 
 
 def factura_form(request):

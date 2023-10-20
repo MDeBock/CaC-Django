@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .formregistro import Registro
 from .nueva_factura import FacturaNueva
+from .form_factura import FacturaForm
 from .models import Facturas
 from datetime import date
 from django.views.generic import ListView
@@ -141,8 +142,15 @@ def factura_form(request):
              },
         ],
     }
-
-    return render(request, "proveedores/factura-form.html", context=contexto)
+    if request.method=='POST':
+        form = FacturaForm(request.POST)
+    else:
+        form= FacturaForm()    
+    
+    nuevo_contexto = {
+        'form':form,
+    }
+    return render(request, "proveedores/factura-form.html", nuevo_contexto)
 
 
 def factura_edit(request, id_factura):

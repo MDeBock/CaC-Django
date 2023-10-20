@@ -5,7 +5,8 @@ from .form_factura import FacturaForm
 from .models import Facturas
 from datetime import date
 from django.views.generic import ListView
-
+from django.contrib import messages
+from django.urls import reverse
 
 # Create your views here.
 
@@ -144,6 +145,7 @@ def factura_form(request):
     }
     if request.method=='POST':
         form = FacturaForm(request.POST)
+        
     else:
         form= FacturaForm()    
     

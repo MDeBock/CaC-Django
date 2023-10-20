@@ -1,11 +1,16 @@
 from django import forms
 from datetime import date
+from django.core.exceptions import ValidationError
+import re
+
+
 TIPO_FACTURA = (
     ('factura','FACTURA'),
     ('nota de credito','NOTA DE CRÉDITO'),
     ('nota de debito','NOTA DE DÉBITO'),
     ('proforma','PROFORMA'),
 )
+
 
 class FacturaForm(forms.Form):
     fecha_carga = forms.DateField(
@@ -77,3 +82,4 @@ class FacturaForm(forms.Form):
         label="Documento",
         widget= forms.FileInput(attrs={'':''})
     )
+

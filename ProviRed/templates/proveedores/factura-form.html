@@ -80,16 +80,24 @@
                 </div>
                <div class="row">
                 <div class="row col s8 right ">
-                    <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">save</i>Guardar</a>
+                    <button class="waves-effect waves-light btn orange darken-4" type="submit"><i class="material-icons right">save</i>Guardar</button>
                     <a href="{% url 'home' %}" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">undo</i>volver</a>
                     <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">clear_all</i>Limpiar</a>
         
                 </div>
             </div> 
+            
             </form>
         </div>
     </div>
+  <!-- Agrega el enlace al archivo JavaScript de Materialize y jQuery -->
 
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      M.AutoInit();
+    });
+  </script>
 </div>
 {% endblock contenido %}
     

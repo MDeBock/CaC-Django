@@ -20,9 +20,16 @@
       {% endif %}
       <div class="container">
         <div class="row">
+            {% for mensaje in messages %}
+                <div class="nav-wrapper">
+                    {{ mensaje }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
             <form class="col s12" method="POST">
                {% csrf_token %}
-
+                
                 <div class="row">
                     <div class="input-field col s6">
                         {{form.fecha_carga.label}} {{form.fecha_carga}}
@@ -40,6 +47,9 @@
                             {% endfor %}
                         </select>
                         <label for="id_tipo">{{ form.tipo.label }}</label>
+                        <div>
+                            {{form.tipo.errors}}
+                        </div>
                     </div>
                     <div class="input-field col s6" >
                         {{form.numero.label}} {{form.numero}}
@@ -48,6 +58,9 @@
                 <div class="row">
                     <div class="input-field col s3">
                         {{form.neto_gravado.label}} {{form.neto_gravado}}
+                        <div>
+                            {{form.neto_gravado.errors}}
+                        </div>
                     </div>
                     <div class="input-field col s3" >
                         {{form.neto_exento.label}} {{form.neto_exento}}
@@ -97,6 +110,10 @@
     document.addEventListener('DOMContentLoaded', function () {
       M.AutoInit();
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems, options);
+      });
   </script>
 </div>
 {% endblock contenido %}

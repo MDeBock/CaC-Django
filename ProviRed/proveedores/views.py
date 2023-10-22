@@ -112,47 +112,38 @@ class Home(ListView):
 
 
 def factura_form(request):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
+
+    formulario = None
+
+    if request.method == 'GET':
+        formulario = FacturaForm()
+    elif request.method == 'POST':
+        formulario = FacturaForm(request.POST)
+        if formulario.is_valid():
+            factura = Facturas(
+                fecha_carga=formulario.cleaned_data['fecha_carga'],
+                fecha_emision=formulario.cleaned_data['fecha_emision'],
+                tipo=formulario.cleaned_data['tipo'],
+                numero=formulario.cleaned_data['numero'],
+                neto_gravado=formulario.cleaned_data['neto_gravado'],
+                neto_exento=formulario.cleaned_data['neto_exento'],
+                iva=formulario.cleaned_data['iva'],
+                retencion_iva=formulario.cleaned_data['retencion_iva'],
+                retencion_iibb=formulario.cleaned_data['retencion_iibb'],
+                total=formulario.cleaned_data['total'],
+                documento=formulario.cleaned_data['documento']
+            )
+
+            factura.save()
+
+            messages.success(request, 'Los datos fueron procesados correctamente')
+        else:
+            messages.error(request, 'Revise los datos ingresados')
     contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.60,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
+        'form': formulario
     }
-    if request.method=='POST':
-        form = FacturaForm(request.POST)
-        
-    else:
-        form= FacturaForm()    
-    
-    nuevo_contexto = {
-        'form':form,
-    }
-    return render(request, "proveedores/factura-form.html", nuevo_contexto)
+
+    return render(request, "proveedores/factura-form.html", contexto)
 
 
 def factura_edit(request, id_factura):

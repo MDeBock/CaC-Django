@@ -3,7 +3,7 @@ from .formregistro import Registro
 from .nueva_factura import FacturaNueva
 from .models import Facturas
 from datetime import date
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
 
 
 # Create your views here.
@@ -67,10 +67,21 @@ def agregar_factura(request):
     return render(request, 'proveedores/agregar-factura.html', {'form': form})
 
 
-class Home(ListView):
+class ListaFacturas(ListView):
     model = Facturas
     context_object_name = 'facturas'
-    template_name = 'proveedores\home.html'
+    template_name = 'proveedores/lista_facturas.html'
+
+
+class ActualizarFactura(UpdateView):
+    model = Facturas
+    form_class = FacturaNueva
+    template_name = 'proveedores/factura-form.html'
+    success_url = 'proveedores/lista_facturas.html'
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        return contexto
 
 
 # def home(request):
@@ -106,7 +117,7 @@ class Home(ListView):
 #     ],
 # }
 
-# return render(request, "proveedores/home.html")
+# return render(request, "proveedores/lista_facturas.html")
 
 
 def factura_form(request):
@@ -145,44 +156,44 @@ def factura_form(request):
     return render(request, "proveedores/factura-form.html", context=contexto)
 
 
-def factura_edit(request, id_factura):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
-    contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.630,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250.795,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
-    }
-
-    # reviso las factuas del contexto y dejo solo la que coincide con el parametro que viene id_factura
-    for factura in contexto["facturas"]:
-        if factura["id_factura"] == id_factura:
-            contexto["facturas"] = factura
-    return render(request, "proveedores/factura-form.html", context=contexto)
+# def factura_edit(request, id_factura):
+#     # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
+#     contexto = {
+#         'username': 'Juan',
+#         'mail': "juan@proveedor.com",
+#         'facturas': [
+#             {"id_factura": 1,
+#              "fecha": "2023-09-15",
+#              "numero": "0005-04405",
+#              "detalle": "Cartuchos de impresora",
+#              "importe": 23450.630,
+#              "vencimiento": "2023-10-15",
+#              "estado": 1
+#              },
+#             {"id_factura": 2,
+#              "fecha": "2023-09-16",
+#              "numero": "0007-04452205",
+#              "detalle": "Limpia piso especial",
+#              "importe": 12500,
+#              "vencimiento": "2023-09-30",
+#              "estado": 0
+#              },
+#             {"id_factura": 3,
+#              "fecha": "2023-09-11",
+#              "numero": "0003-045",
+#              "detalle": "Almuerzo día del maestro",
+#              "importe": 48250.795,
+#              "vencimiento": "2023-09-11",
+#              "estado": 2
+#              },
+#         ],
+#     }
+#
+#     # reviso las factuas del contexto y dejo solo la que coincide con el parametro que viene id_factura
+#     for factura in contexto["facturas"]:
+#         if factura["id_factura"] == id_factura:
+#             contexto["facturas"] = factura
+#     return render(request, "proveedores/factura-form.html", context=contexto)
 
 
 def perfil(request):

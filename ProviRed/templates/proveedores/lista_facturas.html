@@ -5,8 +5,8 @@
     <!--BOTONES DE OPCIONES-->
     <div class="row opciones">
         <div class="col s12">
-            <a href="{% url 'factura-form' %}" class="waves-effect waves-light btn orange darken-4"><i
-                    class="material-icons right">note_add</i>Agregar</a>
+{#            <a href="{% url 'factura-form' %}" class="waves-effect waves-light btn orange darken-4"><i#}
+{#                    class="material-icons right">note_add</i>Agregar</a>#}
             <a href="{% url 'agregar-factura' %}" class="waves-effect waves-light btn orange darken-4"><i
                     class="material-icons right">note_add</i>Agregar(nuevo)</a>
             <a href="" class="waves-effect waves-light btn orange darken-4"><i
@@ -43,6 +43,7 @@
                     <td>{{ factura.detalle }}</td>
                     <td>$ {{ factura.importe | floatformat:2}}</td>
                     <td>{{ factura.vencimiento }}</td>
+                    <td><a href="{% url 'factura_form' factura.id_factura %}">Editar</a></td>
 
                     {% if factura.estado == 1 %}
                         <td><i class="material-icons orange-text">warning</i>A PAGAR</td>
@@ -51,8 +52,8 @@
                     {% else %}
                         <td><i class="material-icons red-text">error</i>PENDIENTE</td>
                     {% endif %}
-                    <td><a href="{% url 'factura-edit' %}{{ factura.id_factura }}"><i
-                            class="material-icons">edit</i></a></td>
+{#                    <td><a href="{% url 'factura-edit' %}{{ factura.id_factura }}"><i#}
+{#                            class="material-icons">edit</i></a></td>#}
                 </tr>
             {% endfor %}
             </tbody>

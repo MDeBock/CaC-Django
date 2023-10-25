@@ -18,3 +18,11 @@ ProviRed/ProviRed/__pycache__/__init__.cpython-311.pyc
 ProviRed/ProviRed/__pycache__/settings.cpython-311.pyc
 ProviRed/ProviRed/__pycache__/urls.cpython-311.pyc
 ProviRed/ProviRed/__pycache__/wsgi.cpython-311.pyc
+ProviRed/proveedores/__pycache__/forms.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0001_initial.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0002_facturas_estado_alter_facturas_neto_gravado.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0003_alter_facturas_fecha_carga_alter_facturas_iva_and_more.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0004_alter_facturas_estado.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0005_alter_facturas_iva_alter_facturas_neto_exento_and_more.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0006_alter_facturas_fecha_carga.cpython-311.pyc
+ProviRed/proveedores/migrations/__pycache__/0001_initial.cpython-311.pyc

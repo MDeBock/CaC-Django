@@ -32,68 +32,68 @@
                 
                 <div class="row">
                     <div class="input-field col s6">
-                        {{form.fecha_carga.label}} {{form.fecha_carga}}
-                        {{form.fecha_carga.errors}}
+                        {{formulario.fecha_carga.label}} {{formulario.fecha_carga}}
+                        {{formulario.fecha_carga.errors}}
                     </div>
                     <div class="input-field col s6" >
-                        {{form.fecha_emision.label}} {{form.fecha_emision}}
-                        {{form.fecha_emision.errors}}
+                        {{formulario.fecha_emision.label}} {{formulario.fecha_emision}}
+                        {{formulario.fecha_emision.errors}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <select id="id_tipo" name="{{ form.tipo.name }}">
+                        <select id="id_tipo" name="{{ formulario.tipo.name }}">
                             <option value="" disabled selected>Selecciona una opción</option>
-                            {% for value, label in form.tipo.field.choices %}
+                            {% for value, label in formulario.tipo.field.choices %}
                                 <option value="{{ value }}">{{ label }}</option>
                             {% endfor %}
                         </select>
-                        <label for="id_tipo">{{ form.tipo.label }}</label>
+                        <label for="id_tipo">{{ formulario.tipo.label }}</label>
                         <div>
-                            {{form.tipo.errors}}
+                            {{formulario.tipo.errors}}
                         </div>
                     </div>
                     <div class="input-field col s6" >
-                        {{form.numero.label}} {{form.numero}}
-                        {{form.numero.errors}}
+                        {{formulario.numero.label}} {{formulario.numero}}
+                        {{formulario.numero.errors}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s3">
-                        {{form.neto_gravado.label}} {{form.neto_gravado}}
+                        {{formulario.neto_gravado.label}} {{formulario.neto_gravado}}
                         <div>
-                            {{form.neto_gravado.errors}}
+                            {{formulario.neto_gravado.errors}}
                         </div>
                     </div>
                     <div class="input-field col s3" >
-                        {{form.neto_exento.label}} {{form.neto_exento}}
-                        {{form.neto_exento.errors}}
+                        {{formulario.neto_exento.label}} {{formulario.neto_exento}}
+                        {{formulario.neto_exento.errors}}
                     </div>
              
                     <div class="input-field col s3">
-                        {{form.iva.label}} {{form.iva}}
-                        {{form.iva.errors}}
+                        {{formulario.iva.label}} {{formulario.iva}}
+                        {{formulario.iva.errors}}
                     </div>
                     <div class="input-field col s3" >
-                        {{form.retencion_iva.label}} {{form.retencion_iva}}
-                        {{form.retencion_iva.errors}}
+                        {{formulario.retencion_iva.label}} {{formulario.retencion_iva}}
+                        {{formulario.retencion_iva.errors}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s3">
-                        {{form.retencion_iibb.label}} {{form.retencion_iibb}}
-                        {{form.retencion_iibb.errors}}
+                        {{formulario.retencion_iibb.label}} {{formulario.retencion_iibb}}
+                        {{formulario.retencion_iibb.errors}}
                     </div>
                     <div class="input-field col s9" >
-                        {{form.total.label}} {{form.total}}
-                        {{form.total.errors}}
+                        {{formulario.importe_total.label}} {{formulario.importe_total}}
+                        {{formulario.importe_total.errors}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="file-field input-field col s3">
                         <div class="btn">
-                        {{form.documento.label}} {{form.documento}}
-                        {{form.document.errors}}
+                        {{formulario.documento.label}}{{formulario.documento}}
+                        {{formulario.document.errors}}
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
                           </div>
@@ -103,7 +103,7 @@
                <div class="row">
                 <div class="row col s8 right ">
                     <button class="waves-effect waves-light btn orange darken-4" type="submit"><i class="material-icons right">save</i>Guardar</button>
-                    <a href="{% url 'home' %}" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">undo</i>volver</a>
+                    <a href="#" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">undo</i>volver</a>
                     <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">clear_all</i>Limpiar</a>
         
                 </div>

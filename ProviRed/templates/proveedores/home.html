@@ -5,10 +5,8 @@
     <!--BOTONES DE OPCIONES-->
     <div class="row opciones">
         <div class="col s12">
-            <a href="{% url 'factura-form' %}" class="waves-effect waves-light btn orange darken-4"><i
+            <a href="{% url 'nuevo-comprobante' %}" class="waves-effect waves-light btn orange darken-4"><i
                     class="material-icons right">note_add</i>Agregar</a>
-            <a href="{% url 'agregar-factura' %}" class="waves-effect waves-light btn orange darken-4"><i
-                    class="material-icons right">note_add</i>Agregar(nuevo)</a>
             <a href="" class="waves-effect waves-light btn orange darken-4"><i
                     class="material-icons right">mode_edit</i>Editar</a>
             <a class="waves-effect waves-light btn orange darken-4"><i
@@ -20,17 +18,18 @@
             <thead>
             <tr>
                 <th></th>
-                <th>Fecha</th>
-                <th>Comprobante</th>
-                <th>Detalle</th>
+                <th>Fecha de carga</th>
+                <th>Fecha de factura</th>
+                <th>Tipo</th>
+                <th>Numero</th>
                 <th>Importe</th>
-                <th>Vencimiento</th>
+                <th>Documento</th>
                 <th>Estado</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            {% for factura in facturas %}
+            {% for c in comprobante %}
                 <tr>
                     <td>
                         <label>
@@ -38,20 +37,21 @@
                             <span></span>
                         </label>
                     </td>
-                    <td>{{ factura.fecha }}</td>
-                    <td>{{ factura.numero }}</td>
-                    <td>{{ factura.detalle }}</td>
-                    <td>$ {{ factura.importe | floatformat:2}}</td>
-                    <td>{{ factura.vencimiento }}</td>
+                    <td>{{ c.fecha_carga }}</td>
+                    <td>{{ c.fecha_emision }}</td>
+                    <td>{{ c.tipo|title }}</td>
+                    <td>{{ c.numero }}</td>
+                    <td>$ {{ c.importe_total | floatformat:2}}</td>
+                    <td>{{ c.documento }}</td>
 
-                    {% if factura.estado == 1 %}
+                    {% if c.estado == 1 %}
                         <td><i class="material-icons orange-text">warning</i>A PAGAR</td>
-                    {% elif factura.estado == 2 %}
+                    {% elif c.estado == 2 %}
                         <td><i class="material-icons green-text">done</i>PAGADA</td>
                     {% else %}
                         <td><i class="material-icons red-text">error</i>PENDIENTE</td>
                     {% endif %}
-                    <td><a href="{% url 'factura-edit' %}{{ factura.id_factura }}"><i
+                    <td><a href="{% url 'editar-comprobante' %}{{ c.id }}"><i
                             class="material-icons">edit</i></a></td>
                 </tr>
             {% endfor %}

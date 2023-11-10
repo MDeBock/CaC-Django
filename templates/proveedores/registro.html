@@ -1,0 +1,42 @@
+{% extends "provired/base.html" %}
+{% block titulo %}Registro de usuario{% endblock titulo %}
+{% block contenido %}
+    <div class="container">
+        <div class="row col s12 orange z-depth-5">
+            <div class="col s12">
+                <p>REGISTRO DE USUARIO</p>
+            </div>
+        </div>
+    </div>
+    <form method="post" class="container">
+        {% csrf_token %}
+        <div class="row col s12">
+            {% for producto in form %}
+                <div class="input-field col s6">
+                    {% if producto.label == "Constancia AFIP" or producto.label == "Constancia IIBB" %}
+                        <div class="row s6">
+                            <div class="file-field input-field col">
+                                <div class=>{{ producto.label_tag }}</div>
+                                <span class="btn right">Seleccionar</span>
+                                <input type="file" class="validate">
+                            </div>
+                        </div>
+                    {% else %}
+                        {{ producto }}{{ producto.label_tag }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col s6 right">
+                <button type="submit" action="{% url 'login' %}"
+                        class="waves-effect waves-light btn orange darken-4 right">
+                    <i class="material-icons right">save</i>
+                    Guardar
+                </button>
+                <a href="{% url 'index' %}" class="waves-effect waves-light btn orange darken-4 right"><i
+                        class="material-icons right">undo</i>volver</a>
+            </div>
+        </div>
+    </form>
+{% endblock contenido %}

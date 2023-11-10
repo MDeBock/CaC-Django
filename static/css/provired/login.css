@@ -1,0 +1,41 @@
+:root{
+    --bg-color: #2b2b2b;
+    --second-bg-color: #52555c;
+    --text-color: #fff;
+    --main-color: rgb(255, 0, 0);
+}
+
+.parte{
+    min-height: 92vh;
+    padding: 5rem 9% 2rem;
+}
+
+.formulario{
+    width: 40%;
+    margin: 10% 30%;
+}
+
+.label-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;  
+    margin: 5%;  
+}
+
+.label-input input{
+    width: 80%;
+    margin: 2% 10% 0;   
+    font-size: 1.5rem;
+    border: 2px solid var(--main-color);
+}
+
+.boton-content{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+

@@ -1,0 +1,93 @@
+{% extends "provired/base.html" %}
+
+<div class="container">
+    <!--BOTONES DE OPCIONES-->
+{% block botones %}{% endblock botones %}
+    <!--TODO FILTRO POR FECHA Y POR ESTADO-->
+
+
+{% block contenido %}
+      <!--FORM-->
+      {% if facturas.estado == 1 or facturas.estado == 2 %}
+      <div class="container">
+        <div class="card-panel text red darken-1">
+            <div class="col s12">
+                <i class="material-icons prefix ">warning</i>
+                <b>LA FACTURA NO PUEDE EDITARSE PORQUE YA ESTÁ SIENDO PROCESADA</b>
+            </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="container">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="date" id="fecha" value="{{facturas.fecha}}">
+                        <label for="fecha">Fecha de factura</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="text" id="numero_factura" value="{{facturas.numero}}">
+                        <label for="numero_factura">Nº de comprobante</label>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="text" name="detalle" id="detalle_factura" value="{{facturas.detalle}}">
+                        <label for="detalle_factura">Detalle</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">attach_money</i>
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="text" name="subtotal" id="subtotal">
+                        <label for="subtotal">Subtotal</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">attach_money</i>
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="text" name="iva" id="iva">
+                        <label for="iva">IVA</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="material-icons prefix">attach_money</i>
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="text" name="retenciones" id="retenciones">
+                        <label for="retenciones">Retenciones</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">attach_money</i>
+                        <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="text" name="total" id="total" value="{{facturas.importe | floatformat:3 }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="file-field input-field col s4">
+                        <div class="btn">
+                          <span>File</span>
+                          <input {% if facturas.estado == 1 or facturas.estado == 2  %}disabled{% endif %} type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row col s8 right ">
+                            <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">save</i>Guardar</a>
+                            <a href="{% url 'home' %}" class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">undo</i>volver</a>
+                            <a class="waves-effect waves-light btn orange darken-4"><i class="material-icons right">clear_all</i>Limpiar</a>
+                
+                        </div>
+                    </div> 
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock contenido %}
+    
+  
+

@@ -1,0 +1,42 @@
+{% extends "provired/base.html" %}
+
+{% block titulo %}
+    Ingresar
+{% endblock titulo %}
+
+{% block contenido %}
+    <div class="container center-align">
+        <div class="row col s6">
+            <div class="container center-align">
+                <div class="row col s6">
+                    <div class="input-field col s12">
+                        {{ form.usuario.label_tag }} {{ form.usuario }}
+                    </div>
+                    <div class="input-field col s12">
+                        {{ form.contra.label_tag }} {{ form.contra }}
+                    </div>
+                </div>
+            </div>
+            <div class="row col s12">
+                <div class="row col s6">
+                    <p>
+                        <label>
+                            <input type="checkbox"/>
+                            <span>Recordarme</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="row col s8 right">
+                    <a href="{% url 'home' %}" class="waves-effect waves-light btn orange darken-4 right"><i
+                            class="material-icons right">check</i>Iniciar sesion</a>
+                    <a href="{% url "home" %}" class="waves-effect waves-light btn orange darken-4 right"><i
+                            class="material-icons right">undo</i>volver</a>
+                    <a href="{% url "registro" %}" class="waves-effect waves-light btn orange darken-4 right"><i
+                            class="material-icons right">undo</i>registro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}
+    
+    

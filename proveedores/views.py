@@ -7,7 +7,10 @@ from django.urls import reverse_lazy
 from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth import authenticate , login
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='login')
 def index(request):
     return render(request,'proveedores/index.html',{})
 

@@ -1,5 +1,8 @@
 {% load static %}
 
+{% if user.is_authenticated %}
+    
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -77,3 +80,8 @@
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 </body>
 </html>
+{% else %}
+    <div class="container">
+    <a href="{% url 'portal' %}"><img src="{% static "img/access_denied.png" %}" style="max-width: 500px; max-height: 500px;" class="img-thumbnail" alt="">  </a>  
+</div>
+{% endif %}

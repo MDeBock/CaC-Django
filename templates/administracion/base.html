@@ -16,7 +16,7 @@
         {% block nav %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{% url "proveedores" %}">
+                <a class="navbar-brand" href="{% url "portal" %}">
                     <img src="/static/img/logo_admin.png" alt="Logo" width="30" height="30">
         
                     ProviRed 
@@ -37,17 +37,27 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="#">
                         <img src="/static/img/avatar.jpg" alt="Avatar" class="rounded-circle" width="30" height="30">
-                        Usuario
+                        {{user.username}}
                     </a>
-                    <a class="nav-item nav-link" href="{% url 'portal' %}">Salir <i class="fa-solid fa-right-to-bracket"></i></a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Salir <i class="fa-solid fa-right-to-bracket"></i></a>
                 </div>
             </div>
         </nav>
         {% endblock nav %}
     </nav>
+    
+    {% if perms.administracion %}
     {% block main %}
     
     {% endblock main %}
+
+    {% else %}
+    <div class="container">
+    <img src="{% static "img/access_denied.png" %}" style="max-width: 500px; max-height: 500px;" class="img-thumbnail" alt="">    
+</div>
+    {% endif %}
+        
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>

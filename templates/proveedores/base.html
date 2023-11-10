@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+       
+    <title>Provired -{% block titulo %}{% endblock titulo %}</title>
+</head>
+<body>
+    <nav>
+        {% block nav %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url "proveedores" %}">
+                    <img src="/static/img/logo_admin.png" alt="Logo" width="30" height="30">
+        
+                    ProviRed 
+                </a>
+                
+                {% if perms.proveedores %}
+                    
+                
+                    
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav nav-pills flex-column flex-sm-row mx-auto">
+                        <li class="nav-item">
+                            <a class="flex-sm-fill text-sm-center nav-link {{ nav_comprobantes }}"  href="{% url "comprobantes" %}">Comprobantes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="flex-sm-fill text-sm-center nav-link {{ nav_perfil }}" href="#">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="flex-sm-fill text-sm-center nav-link {{ nav_ayuda}}" href="#">Ayuda</a>
+                        </li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="nav nav-pills flex-column flex-sm-row mx-auto">
+                        <li class="nav-item">
+                            <a class="flex-sm-fill text-sm-center nav-link {{ nav_ayuda}}" href="#">No tenes permisos para ver esta seccion</a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="#">
+                        <img src="/static/img/avatar.jpg" alt="Avatar" class="rounded-circle" width="30" height="30">
+                        {{user.username}}
+                    </a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Salir <i class="fa-solid fa-right-to-bracket"></i></a>
+                </div>
+            </div>
+        </nav>
+        {% endblock nav %}
+    </nav>
+    {% block main %}
+    
+    {% endblock main %}
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>

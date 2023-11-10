@@ -1,107 +1,109 @@
 from django import forms
-from django.forms import ValidationError
+from datetime import date
+from django.core.exceptions import ValidationError
+from .models import Proveedor, Comprobante
 import re
 
+# VALIDADORES
+def formato_numero_factura(valor):
+    patron = re.compile(r'^\d{4}-\d{8}$')
 
-def solo_caracteres(value):
-    if any(char.isdigit() for char in value):
-        raise ValidationError('Este campo no puede contener números. %(valor)s', code='Invalid', params={'valor': value})
+    if not patron.match(valor):
+        raise ValidationError('El numero no tiene el formato correcto. (Ejemplo: 0001-00001234)',
+             code='Invalid')
     
+def solo_numeros(valor):
+    try:
+        numero= float(valor)
+        if numero < 0:
+            raise ValidationError('El numero debe ser positivo')
+    except (ValueError, TypeError):
+        raise ValidationError('El valor no es válido, debe ser un número')
 
-def custom_validate_email(value):
-    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    if not re.match(email_regex, value):
-        raise ValidationError('Correo electrónico inválido')
-
-class ContactoForm(forms.Form):
-    nombre = forms.CharField(label="Nombre", max_length=50, validators=(solo_caracteres,), widget=forms.TextInput(attrs={'placeholder': 'Nombre (solo letras)'}))
-    motivo = forms.CharField(label="Asunto", max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Motivo de la consulta'}))
-    email = forms.CharField(label='Email', max_length=100, required=True,validators=(custom_validate_email,), error_messages={'required': 'Por favor completa este campo'}, widget=forms.EmailInput(attrs={'type': 'email', 'placeholder': 'Ejemplo@ejemplo.com'}))
-    telefono = forms.CharField(label="Telefono", widget=forms.NumberInput(attrs={'placeholder': 'Telefono (solo numeros)'}))
-    consulta = forms.CharField(label="Consulta", max_length=500, widget=forms.Textarea(attrs={'rows': 5, 'placeholder': 'Escribi tu consulta aqui'}))
+def archivo_comprobante_valido(archivo):
+    if not archivo.name.lower().endswith('.pdf'):
+        raise ValidationError('El archivo debe ser formato PDF')
     
-    def clean_consulta(self):
-        data = self.cleaned_data['consulta']
-        if len(data)<10:
-            raise ValidationError('Minimo 10 caracteres')
-        return data 
+def importe_total_valido(valor):
+    try:
+        numero= float(valor)
+        if numero <= 0:
+            raise ValidationError('El importe total debe ser mayor a 0(cero)')
+    except (ValueError, TypeError):
+        raise ValidationError('El valor no es válido, debe ser un número')
 
 
 
-clase1 = 'input-field col s6'
-clase2 = 'validate'
 
 
-class Registro(forms.Form):
-    clase1 = 'input-field col s6'
-    clase2 = 'validate'
-    usuario = forms.CharField(
-        label='Nombre de usuario',
-        widget=forms.TextInput(attrs={
-            'class': clase1,
-            'class': clase2,
-            'id': 'usuario'}))
+class ComprobanteForm(forms.ModelForm):
+    TIPO_FACTURA = (
+         ('factura','FACTURA'),
+         ('nota de credito','NOTA DE CRÉDITO'),
+         ('nota de debito','NOTA DE DÉBITO'),
+         ('proforma','PROFORMA'),
+     )
 
-    contra = forms.CharField(
-        label='Contraseña',
-        widget=forms.TextInput(attrs={
-            'class': clase1,
-            'class': clase2,
-            'type': 'password',
-            'id': 'password'}))
+    ESTADO_FACTURA = (
+    ('Pendiente','Pendiente'),
+    ('Procesado para pago','Procesado para pago'),
+    ('Aceptado para pago','Aceptado para pago'),
+    ('Pagado','Pagado'),
+    ('Rechazado','Rechazado'),
+)
 
-    clave_unica = forms.CharField(
-        label='Clave única de registro',
-        widget=forms.TextInput(
-            attrs={
-                'class': clase1,
-                'class': clase2,
-                'id': 'key_usuario'}))
+    documento = forms.FileField(validators=[archivo_comprobante_valido])
+    estado = forms.ChoiceField(required=False, choices=ESTADO_FACTURA)
+    proveedor = forms.IntegerField(required=False)
+    fecha_emision = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date','class':'form-control'}))
+    numero = forms.CharField(validators=[formato_numero_factura], widget=forms.TextInput(attrs={'class':'form-control'}))
+    tipo = forms.ChoiceField(required=True,choices=TIPO_FACTURA, widget=forms.Select(attrs={'class':'form-control'}))
+    neto_gravado = forms.CharField(required=False,validators=[solo_numeros] , widget=forms.TextInput(attrs={'class':'form-control','value':'0'}))
+    neto_exento = forms.CharField(required=False,validators=[solo_numeros] , widget=forms.TextInput(attrs={'class':'form-control','value':'0'}))
+    iva = forms.CharField(required=False,validators=[solo_numeros] , widget=forms.TextInput(attrs={'class':'form-control','value':'0'}))
+    retencion_iva = forms.CharField(label='Retenciones IVA',required=False,validators=[solo_numeros] , widget=forms.TextInput(attrs={'class':'form-control','value':'0'}))
+    retencion_iibb = forms.CharField(label='Retenciones IIBB',required=False,validators=[solo_numeros] , widget=forms.TextInput(attrs={'class':'form-control','value':'0'}))
+    importe_total = forms.CharField(required=True,validators=[importe_total_valido] , widget=forms.TextInput(attrs={'class':'form-control','value':'0'}))
 
-    razon_social = forms.CharField(
-        label='Razón social',
-        widget=forms.TextInput(
-            attrs={
-                'class': clase1,
-                'class': clase2,
-                'id': 'razon_social'}))
-    ins_afip = forms.CharField(
-        label='Inscripción AFIP',
-        widget=forms.TextInput(
-            attrs={
-                'class': clase1,
-                'class': clase2,
-                'id': 'inscripcion'}))
-    cuit = forms.CharField(
-        label='CUIT',
-        widget=forms.TextInput(
-            attrs={
-                'class': clase1,
-                'class': clase2,
-                'id': 'afip'}))
-    email = forms.EmailField(
-        label='Correo Electrónico',
-        widget=forms.TextInput(
-            attrs={
-                'class': clase1,
-                'class': clase2,
-                'id': 'email'}))
-    num_tel = forms.CharField(
-        label='Teléfono',
-        widget=forms.TextInput(
-            attrs={
-                'class': clase1,
-                'class': clase2,
-                'id': 'telefono'}))
-    const_afip = forms.FileField(
-        label='Constancia AFIP',
-        widget=forms.FileInput(
-            attrs={
-                'class': 'file-path validate',
-                'id': 'afipfile'}))
-    const_iibb = forms.FileField(
-        label='Constancia IIBB',
-        widget=forms.FileInput(
-            attrs={
-                'class': 'file-path validate',
-                'id': 'iibb', }))
+    class Meta:
+        model = Comprobante
+        fields = ['fecha_carga','fecha_emision' , 'tipo' ,
+                  'numero' , 'neto_gravado', 'neto_exento' ,
+                  'iva' , 'retencion_iva' , 'retencion_iibb' ,
+                  'estado' , 'importe_total' ,
+                  'documento', 'proveedor', ]     
+        labels = {
+            'fecha_carga': 'Fecha de carga',
+            'fecha_emision': 'Fecha de emision',
+            'tipo': 'Tipo de comprobante',
+            'numero':'Numero',
+            'neto_gravado':'Neto gravado',
+            'neto_exento':'Neto Exento',
+            'iva':'IVA',
+            'retencion_iva':'Retencion de IVA',
+            'retencion_iibb':'Retencion de IIBB',
+            'documento':'Documento',
+            'estado':'Estado',
+            'importe_total':'Total',
+            'proveedor':'Proveedor'
+        }   
+
+        widgets = {
+            'fecha_carga': forms.DateInput(attrs={'type':'date','value':date.today(),'class':'form-control'}),
+            'documento': forms.FileInput(attrs={'class': 'form-control-file'}),
+            
+        }
+        
+
+
+class ProveedorForm(forms.ModelForm):
+    class Meta:
+        model = Proveedor
+        fields = ['nombre','cuit']
+        labels = {
+            'nombre':'Nombre',
+            'cuit':'CUIT',
+        }
+        widgets = {
+
+        }        

@@ -1,0 +1,98 @@
+{% extends 'proveedores/base.html' %}
+{% block titulo %}Comprobantes{% endblock titulo %}
+
+{% block main %}
+<div class="container mt-5">
+    <h1>Formulario Factura</h1>
+    {% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>Error:</strong> Por favor, corrija los errores en el formulario.
+  </div>
+{% endif %}
+{% if not nuevo_comprobante %}
+{% if not form.estado.value == 'Pendiente' %}
+  <div class="alert alert-warning">
+    <strong>Atención:</strong> El comprobante ya está en proceso de aprobación y no puede ser editado.
+  </div>
+{% endif %}
+{% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Columna 1 -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form.fecha_carga.label }}
+                    {{form.fecha_carga}}
+                    {{form.fecha_carga.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.fecha_emision.label}} {{form.fecha_emision}}
+                    {{form.fecha_emision.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.numero.label}} {{form.numero}}
+                    {{form.numero.errors}}
+                </div>
+                <div class="form-group">
+                    {{ form.tipo.label }}
+                    <select class="form-control" id="tipoComprobante" name="{{form.tipo.name}}">
+                        <option value="">Seleccione una opcion</option>
+                        {% for value, label in form.tipo.field.choices %}
+                        <option value="{{ value }}"  {% if value == form.tipo.value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                    
+                    {{form.tipo.errors}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <br>
+                <p><strong>Estado del comprobante</strong></p>
+                <h1>
+                    {% if form.estado.value == 'Pendiente' %}<span class="badge text-bg-danger">{{form.estado.value}}</span>{% endif %}
+                    {% if form.estado.value == 'Procesado para pago' %}<span class="badge text-bg-warning">{{form.estado.value}}</span>{% endif %}
+                    {% if form.estado.value == 'Aceptado para pago' %}<span class="badge text-bg-primary">{{form.estado.value}}</span>{% endif %}
+                    {% if form.estado.value == 'Pagado' %}<span class="badge text-bg-success">{{form.estado.value}}</span>{% endif %}
+                    {% if form.estado.value == 'Rechazado' %}<span class="badge text-bg-dark">{{form.estado.value}}</span>{% endif %}
+
+                </h1>
+                </div>
+            </div>
+            <!-- Columna 2 -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{form.neto_gravado.label}} {{form.neto_gravado}}
+                    {{form.neto_gravado.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.neto_exento.label}} {{form.neto_exento}}
+                    {{form.neto_exento.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.iva.label}} {{form.iva}}
+                    {{form.iva.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.retencion_iva.label}} {{form.retencion_iva}}
+                    {{form.retencion_iva.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.retencion_iibb.label}} {{form.retencion_iibb}}
+                    {{form.retencion_iibb.errors}}
+                </div>
+                <div class="form-group">
+                    {{form.importe_total.label}} {{form.importe_total}}
+                    {{form.importe_total.errors}}
+                </div>
+                <div class="form-group">
+                   {{form.documento.label}} {{form.documento}}
+                   {{form.documento.errors}}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" {% if not nuevo_comprobante %} {% if not form.estado.value == 'Pendiente'  %} disabled>No se permite editar</button>{% endif %} {% else %}>Guardar</button>{% endif %} 
+        <a class="btn btn-warning" href="{% url "comprobantes" %}">Volver</a>
+
+    </form>
+</div>
+{% endblock main %}

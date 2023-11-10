@@ -1,2 +1,0 @@
-# ProviRed
- tp final

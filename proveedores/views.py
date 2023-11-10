@@ -1,194 +1,102 @@
+from typing import Any
 from django.shortcuts import render
-from proveedores.forms import ContactoForm, Registro
-from django.http import HttpResponseBadRequest
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
+from .models import Comprobante, Proveedor
+from .forms import ComprobanteForm
+from django.urls import reverse_lazy
+from django.http import HttpRequest
 from django.contrib import messages
-
-
-# Create your views here.
-
+from django.contrib.auth import authenticate , login
 
 def index(request):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
-    contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.630,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250.795,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
-    }
+    return render(request,'proveedores/index.html',{})
 
-    return render(request, "proveedores/index.html", context=contexto)
+class ComprobanteLista(ListView):
+    model = 'comprobante'
+    context_object_name = 'comprobantes'
+    template_name = 'proveedores/comprobantes.html'
+   
+   
+    ordering = ['fecha_emision','fecha_carga']
 
+    #Aca cargo en queryset filtrando el usuario (ahora por nombre pero sera por id)
+    def get_queryset(self):
+        queryset = self.queryset = Comprobante.objects.filter(proveedor__nombre=self.request.user.username)
+        return queryset
+    
 
-def home(request):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
-    contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.630,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250.795,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
-    }
-
-    return render(request, "proveedores/home.html", context=contexto)
-
-
-def factura_form(request):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
-    contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.60,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
-    }
-
-    return render(request, "proveedores/factura-form.html", context=contexto)
-
-
-def factura_edit(request, id_factura):
-    # EL CONTEXTO EVENTUALMENTE SE COMPLETARA DESDE UNA CONSULTA EN DB
-    contexto = {
-        'username': 'Juan',
-        'mail': "juan@proveedor.com",
-        'facturas': [
-            {"id_factura": 1,
-             "fecha": "2023-09-15",
-             "numero": "0005-04405",
-             "detalle": "Cartuchos de impresora",
-             "importe": 23450.630,
-             "vencimiento": "2023-10-15",
-             "estado": 1
-             },
-            {"id_factura": 2,
-             "fecha": "2023-09-16",
-             "numero": "0007-04452205",
-             "detalle": "Limpia piso especial",
-             "importe": 12500,
-             "vencimiento": "2023-09-30",
-             "estado": 0
-             },
-            {"id_factura": 3,
-             "fecha": "2023-09-11",
-             "numero": "0003-045",
-             "detalle": "Almuerzo día del maestro",
-             "importe": 48250.795,
-             "vencimiento": "2023-09-11",
-             "estado": 2
-             },
-        ],
-    }
-
-    # reviso las factuas del contexto y dejo solo la que coincide con el parametro que viene id_factura
-    for factura in contexto["facturas"]:
-        if factura["id_factura"] == id_factura:
-            contexto["facturas"] = factura
-    return render(request, "proveedores/factura-form.html", context=contexto)
-
-
-def perfil(request):
-    # CONTEXTO SERA DESDE LA DB CON LOS DATOS DEL USUARIO
-    contexto = {
-        "username": "Juan Perez",
-        "email": "juan@proveedor.com.ar"
-    }
-    return render(request, 'proveedores/perfil.html', contexto)
-
-
-def registro(request):
-    form = Registro()
-    return render(request, 'proveedores/registro.html', {'form': form})
-
-
-def login(request):
-    form = Registro()
-    return render(request, 'proveedores/login.html', {'form': form})
-
-
-def contacto(request):    
+     #Agrego variable al contexto para el nav
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
         
-    if request.method == 'GET':
-        formulario_contacto = ContactoForm() 
-    elif request.method == 'POST':
-        formulario_contacto = ContactoForm(request.POST)
-        if formulario_contacto.is_valid():
-            messages.success(request, 'Gracias por su consulta')
-        else:
-            messages.error(request, 'Por favor revise los datos ingresados')
-    else:
-        return HttpResponseBadRequest("Hiciste cagadas")
+        context['nav_comprobantes']= 'active'
+        return context
     
-    context = {
-        'fomrulario_contacto': formulario_contacto
-    }
+    #Funcion GET para el filtro
+    def get(self,  request: HttpRequest, *args: Any, **kwargs: Any):
+        if 'fecha_emision' in request.GET:
+            self.queryset = self.queryset.filter(fecha_emision__contains=request.GET['fecha_emision'])
+        return super().get(request, *args, **kwargs)
     
-    return render(request, "proveedores\contacto.html", context)
+
+class ComprobanteNuevo(CreateView):
+    
+    
+    model = Comprobante
+    form_class = ComprobanteForm
+    template_name = 'proveedores/alta_edicion.html'
+    success_url = reverse_lazy('comprobantes')
+
+    def get_context_data(self, **kwargs: Any):
+        
+        contexto = super().get_context_data(**kwargs)
+        contexto['titulo'] = 'Nuevo comprobante'
+        contexto['nuevo_comprobante'] = True
+        contexto['nav_comprobantes'] = 'active'
+        
+        return contexto
+    
+    def form_invalid(self, form):
+        
+        messages.error(self.request, 'Por favor, corrija los errores en el formulario.')
+        return super().form_invalid(form)    
+
+    def form_valid(self, form):
+        proveedor = Proveedor.objects.get(pk=3)
+        form.instance.proveedor=proveedor
+
+        return super().form_valid(form)
+
+class ComprobanteEditar(UpdateView):
+    model = Comprobante
+    form_class = ComprobanteForm
+    template_name = 'proveedores/alta_edicion.html'
+    success_url = reverse_lazy('comprobantes')
+
+    def get_context_data(self, **kwargs: Any):
+        contexto = super().get_context_data(**kwargs)
+        contexto['titulo'] = 'Editar comprobante'
+        contexto['nav_comprobantes'] = 'active'
+        return contexto
+
+    def form_invalid(self, form):
+        
+        messages.error(self.request, 'Por favor, corrija los errores en el formulario.')
+        return super().form_invalid(form)    
+
+    def form_valid(self, form):
+        proveedor = Proveedor.objects.get(pk=1) #vendra el usuario de la sesion
+        form.instance.proveedor=proveedor
+
+        return super().form_valid(form)    
+    
+class ComprobanteEliminar(DeleteView):
+    model = Comprobante
+    template_name = 'proveedores/eliminar.html'
+    success_url = reverse_lazy('comprobantes')  
+
+    def get_context_data(self, **kwargs: Any):
+        contexto = super().get_context_data(**kwargs)
+        contexto['titulo'] = 'Eliminar comprobante'
+        contexto['nav_participantes'] = 'active'
+        return contexto  

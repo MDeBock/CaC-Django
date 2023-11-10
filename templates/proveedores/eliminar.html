@@ -1,0 +1,17 @@
+{% extends 'proveedores/base.html' %}
+{% block titulo %}Comprobantes{% endblock titulo %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1>{{titulo}}</h1>
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="submit" value="Confirmar" class='btn btn-danger'>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main %}

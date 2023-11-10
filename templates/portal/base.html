@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <!-- custom css -->
+     <link rel="stylesheet" href="{% static 'css/portal/index.css' %}">
+     <!-- box icons -->
+     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Custom ICO -->
+    <link rel="shortcut icon" href="{% static 'img/portal/logo.ico' %}" type="image/x-icon"> 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    {% block css %}{% endblock css %}
+    <title>ProviRed - {% block titulo %}{% endblock titulo %}</title>
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="logo">
+                <img src="{% static "img/portal/logo.png" %}" alt="logo grupo">
+            </div>
+            <div class="navegador">
+                <nav>
+                    <a href="#home">HOME</a>
+                    <a href="#nosotros">NOSOTROS</a>
+                    <a href="#funciones">DESCRIPCION</a>
+                    <a href="#imagenes">IMAGENES</a>
+                    
+                    {% if perms.administracion %}
+                        <a href="{% url 'administracion' %}">ADMINISTRACION</a>
+                    {% endif %}
+                    
+                    {% if perms.proveedores %}
+                        <a href="{% url 'proveedores' %}">PROVEEDORES</a> 
+                    {% endif %}
+                        
+                    
+                </nav>
+            </div>
+            <div class="usuarios">
+            
+            {% if user.is_authenticated %}
+                <a href="" class="btn">Bienvenido {{user.username}}</a>
+                 <a class="nav-item nav-link" href="{% url 'logout' %}">Salir <i class="fa-solid fa-right-to-bracket"></i></a>
+            {% else %} 
+                <a class="btn btn-outline" href="{% url 'login' %}">Ingresar </a>
+                <a class="btn btn-outline" href="{% url 'registrarse' %}">Registrarse </a>
+         
+            {% endif %}
+                </div>
+        </div>
+    </header>
+    {% block main %}{% endblock main %}
+    <footer class="footer">
+        <div class="footer-text">
+            <p>Copyright &copy; 2023 Grupo 16 CaC django Comision 23654 | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <!-- custom js -->
+    <script src="{% static "js/provired/index.js" %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    {% block js %}{% endblock js %}
+    
+</body>
+</html>

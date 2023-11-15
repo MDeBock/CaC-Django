@@ -65,7 +65,7 @@ class ComprobanteNuevo(CreateView):
         return super().form_invalid(form)    
 
     def form_valid(self, form):
-        proveedor = Proveedor.objects.get(pk=3)
+        proveedor = Proveedor.objects.get(pk=self.request.user.id)
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)

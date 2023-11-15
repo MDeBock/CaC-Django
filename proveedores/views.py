@@ -54,7 +54,7 @@ class ComprobanteNuevo(CreateView):
         
         contexto = super().get_context_data(**kwargs)
         contexto['titulo'] = 'Nuevo comprobante'
-        contexto['nuevo_comprobante'] = True
+        contexto['accion'] = "agregar"
         contexto['nav_comprobantes'] = 'active'
         
         return contexto
@@ -79,6 +79,7 @@ class ComprobanteEditar(UpdateView):
     def get_context_data(self, **kwargs: Any):
         contexto = super().get_context_data(**kwargs)
         contexto['titulo'] = 'Editar comprobante'
+        contexto['accion'] = "editar"
         contexto['nav_comprobantes'] = 'active'
         return contexto
 
@@ -88,7 +89,7 @@ class ComprobanteEditar(UpdateView):
         return super().form_invalid(form)    
 
     def form_valid(self, form):
-        proveedor = Proveedor.objects.get(pk=1) #vendra el usuario de la sesion
+        proveedor = Proveedor.objects.get(pk=3) #vendra el usuario de la sesion
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)    

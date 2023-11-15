@@ -9,12 +9,16 @@
     <strong>Error:</strong> Por favor, corrija los errores en el formulario.
   </div>
 {% endif %}
-{% if not nuevo_comprobante %}
+
+{% if accion == 'editar' %}
+
 {% if not form.estado.value == 'Pendiente' %}
   <div class="alert alert-warning">
     <strong>Atención:</strong> El comprobante ya está en proceso de aprobación y no puede ser editado.
   </div>
+    
 {% endif %}
+    
 {% endif %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -23,11 +27,18 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {{form.fecha_carga.label }}
-                    {{form.fecha_carga}}
+                    
+                    {% if accion == 'agregar' %}
+                        {{form.fecha_carga}}
+                    {% else %}                        
+                    <input type="date" class="form-control" id="fecha_carga" name="fecha_carga" value="{{form.fecha_carga.value|date:'c'}}" required>
+                    {% endif %}
                     {{form.fecha_carga.errors}}
                 </div>
                 <div class="form-group">
-                    {{form.fecha_emision.label}} {{form.fecha_emision}}
+                    {{form.fecha_emision.label}}
+                    
+                    <input type="date" class="form-control" id="fecha_emision" name="fecha_emision" value="{{form.fecha_emision.value|date:'c'}}" required>
                     {{form.fecha_emision.errors}}
                 </div>
                 <div class="form-group">
@@ -90,8 +101,23 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success" {% if not nuevo_comprobante %} {% if not form.estado.value == 'Pendiente'  %} disabled>No se permite editar</button>{% endif %} {% else %}>Guardar</button>{% endif %} 
-        <a class="btn btn-warning" href="{% url "comprobantes" %}">Volver</a>
+        
+        {% if accion == 'agregar' %}
+            <button type='submit' class='btn btn-success'>Guardar</button>
+            <a class="btn btn-warning" href="{% url "comprobantes" %}">Volver</a>
+        {% endif %}
+            
+        
+        {% if accion == 'editar' %}
+            
+            {% if form.estado.value == 'Pendiente' %}
+            <button type='submit' class='btn btn-success'>Guardar</button>
+                        
+            {% endif %}
+            <a class="btn btn-warning" href="{% url "comprobantes" %}">Volver</a>      
+        {% endif %}
+            
+    
 
     </form>
 </div>

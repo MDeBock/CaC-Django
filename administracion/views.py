@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from proveedores.models import Comprobante, Proveedor
 from proveedores.forms import ComprobanteForm
@@ -9,7 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrarAdministradorForm
 from django.shortcuts import render, redirect
-
+from .models import Administrador
 
 def index(request):
     return render(request,'administracion/index.html',{})
@@ -18,7 +19,13 @@ class Comprobantes(ListView):
     model = Comprobante
     context_object_name = 'comprobantes'
     template_name = 'administracion/comprobantes.html'
-    queryset = Comprobante.objects.all()
+    #queryset = Comprobante.objects.all()
+    
+    def get_queryset(self):
+        administrador = self.request.user.administrador
+        
+        queryset = Comprobante.objects.filter(proveedor__in=administrador.proveedor.all())
+        return queryset
 
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)

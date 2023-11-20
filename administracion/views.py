@@ -7,9 +7,10 @@ from django.http import HttpRequest
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import RegistrarAdministradorForm
+from django.shortcuts import render, redirect
 
 
-@login_required(login_url='login')
 def index(request):
     return render(request,'administracion/index.html',{})
 
@@ -58,3 +59,16 @@ class ComprobanteEditar(UpdateView):
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)      
+    
+
+def registrarse(request):
+    if request.method == 'POST':
+        form = RegistrarAdministradorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = RegistrarAdministradorForm()
+    
+
+    return render(request,'administracion/registrarse.html',{'form':form})    

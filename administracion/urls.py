@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.index, name='administracion'),
     path('comprobantes', views.Comprobantes.as_view(),name='adm_comprobantes'),
     path('comprobantes/editar/<int:pk>/', views.ComprobanteEditar.as_view(), name='adm_editar_comprobante'),
+    path('registrarse/',views.registrarse, name='registrarse_admin'),
 
 
 ]

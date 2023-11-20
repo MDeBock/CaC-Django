@@ -39,6 +39,10 @@
                     {% if perms.proveedores %}
                         <a href="{% url 'proveedores' %}">PROVEEDORES</a> 
                     {% endif %}
+
+                    {% if perms.staff %}
+                        <a href="{% url 'admin:index' %}">ADMIN DJANGO</a> 
+                    {% endif %}
                         
                     
                 </nav>

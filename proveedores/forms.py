@@ -76,7 +76,7 @@ class ComprobanteForm(forms.ModelForm):
                   'numero' , 'neto_gravado', 'neto_exento' ,
                   'iva' , 'retencion_iva' , 'retencion_iibb' ,
                   'estado' , 'importe_total' ,
-                  'documento', 'proveedor', ]     
+                  'documento', 'proveedor']     
         labels = {
             'fecha_carga': 'Fecha de carga',
             'fecha_emision': 'Fecha de emision',

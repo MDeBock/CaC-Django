@@ -24,7 +24,7 @@ class ComprobanteLista(ListView):
 
     #Aca cargo en queryset filtrando el usuario (ahora por nombre pero sera por id)
     def get_queryset(self):
-        queryset = self.queryset = Comprobante.objects.filter(proveedor__nombre=self.request.user.username)
+        queryset = self.queryset = Comprobante.objects.filter(proveedor__usuario_id=self.request.user.id)
         return queryset
     
 
@@ -65,7 +65,7 @@ class ComprobanteNuevo(CreateView):
         return super().form_invalid(form)    
 
     def form_valid(self, form):
-        proveedor = Proveedor.objects.get(pk=self.request.user.id)
+        proveedor = Proveedor.objects.get(usuario_id=self.request.user.id)
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)
@@ -89,7 +89,7 @@ class ComprobanteEditar(UpdateView):
         return super().form_invalid(form)    
 
     def form_valid(self, form):
-        proveedor = Proveedor.objects.get(pk=3) #vendra el usuario de la sesion
+        proveedor = Proveedor.objects.get(usuario_id=self.request.user.id) #vendra el usuario de la sesion
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)    

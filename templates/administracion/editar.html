@@ -23,11 +23,18 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {{form.fecha_carga.label }}
-                    {{form.fecha_carga}}
+                    
+                    {% if accion == 'agregar' %}
+                        {{form.fecha_carga}}
+                    {% else %}                        
+                    <input type="date" class="form-control" id="fecha_carga" name="fecha_carga" value="{{form.fecha_carga.value|date:'c'}}" required>
+                    {% endif %}
                     {{form.fecha_carga.errors}}
                 </div>
                 <div class="form-group">
-                    {{form.fecha_emision.label}} {{form.fecha_emision}}
+                    {{form.fecha_emision.label}}
+                    
+                    <input type="date" class="form-control" id="fecha_emision" name="fecha_emision" value="{{form.fecha_emision.value|date:'c'}}" required>
                     {{form.fecha_emision.errors}}
                 </div>
                 <div class="form-group">
@@ -104,6 +111,7 @@
         <button type="submit" class="btn btn-success" {% if form.estado.value == 'Pagado'  %} disabled>No se permite editar</button> {% else %}>Guardar</button>{% endif %} 
         <a class="btn btn-warning" href="{% url "adm_comprobantes" %}">Volver</a>
         {{form.errors}}
+        {{form.proveedor.value}}
     </form>
 </div>
 {% endblock main %}

@@ -54,7 +54,12 @@ class ComprobanteForm(forms.ModelForm):
 
     documento = forms.FileField(validators=[archivo_comprobante_valido])
     estado = forms.ChoiceField(required=False, choices=ESTADO_FACTURA)
-    proveedor = forms.IntegerField(required=False)
+    proveedor = forms.ModelChoiceField(
+        queryset=Proveedor.objects.all(),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     fecha_emision = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date','class':'form-control'}))
     numero = forms.CharField(validators=[formato_numero_factura], widget=forms.TextInput(attrs={'class':'form-control'}))
     tipo = forms.ChoiceField(required=True,choices=TIPO_FACTURA, widget=forms.Select(attrs={'class':'form-control'}))

@@ -62,7 +62,10 @@ class ComprobanteEditar(UpdateView):
         return super().form_invalid(form)    
 
     def form_valid(self, form):
-        proveedor = Proveedor.objects.get(pk=1) #vendra el usuario de la sesion
+        #traigo el proveedor del comprobante
+        proveedor =self.request.user.administrador.proveedor.first()
+
+        
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)      

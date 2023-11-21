@@ -21,6 +21,8 @@
         <div class="row">
             <!-- Columna 1 -->
             <div class="col-md-6">
+                <label for="">{{form.proveedor}}</label>
+                
                 <div class="form-group">
                     {{form.fecha_carga.label }}
                     
@@ -111,7 +113,7 @@
         <button type="submit" class="btn btn-success" {% if form.estado.value == 'Pagado'  %} disabled>No se permite editar</button> {% else %}>Guardar</button>{% endif %} 
         <a class="btn btn-warning" href="{% url "adm_comprobantes" %}">Volver</a>
         {{form.errors}}
-        {{form.proveedor.value}}
+        
     </form>
 </div>
 {% endblock main %}

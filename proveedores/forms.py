@@ -57,7 +57,8 @@ class ComprobanteForm(forms.ModelForm):
     proveedor = forms.ModelChoiceField(
         queryset=Proveedor.objects.all(),
         required=False,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        
     )
 
     fecha_emision = forms.DateField(required=True, widget=forms.DateInput(attrs={'type':'date','class':'form-control'}))

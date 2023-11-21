@@ -63,11 +63,8 @@ class ComprobanteEditar(UpdateView):
 
     def form_valid(self, form):
         #traigo el proveedor del comprobante
-        proveedor =self.request.user.administrador.proveedor.first()
-        proveedor_form = form.cleaned_data.get('proveedor')
-        print(proveedor_form)
+        proveedor = form.cleaned_data['proveedor']
         print(proveedor)
-        
         form.instance.proveedor=proveedor
 
         return super().form_valid(form)      

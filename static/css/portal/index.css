@@ -154,6 +154,14 @@ section{
     margin: .5% 0;
 }
 
+.nosotros h5{
+    font-size: .8rem;
+}
+
+.nosotros h3{
+    font-size: 1.2rem;
+}
+
 .profesor {
     display: flex;
     flex-direction: column;
@@ -168,14 +176,9 @@ section{
     width: 12%;
 }
 
-.profesor h3{
-    font-size: 1.5rem;
-    margin: .2rem;
-}
-
 .alumnos{
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     margin: 3.5% 0;
 }
 
@@ -186,7 +189,8 @@ section{
 }
 
 .integrante img{
-    width: 60%;
+    width: 10rem;
+    border-radius: 100%;
 }
 
 .funciones h1{
